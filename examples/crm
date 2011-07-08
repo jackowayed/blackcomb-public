@@ -1,0 +1,23 @@
+app:           
+  name: Simple CRM
+  klasses:
+  - name: Customers
+    fields: 
+    - name: Name
+      type: String
+    - name: Email
+      type: String
+    - name: Description
+      type: Text
+    - name: Status
+      type: Select
+      values: ['New', 'Qualified', 'Unqualified' ]
+    - name: Notes
+      type: MultiText
+    - name: Assigned
+      type: User
+    filters:
+    - name: New        
+      code: @record['status'] == '0'
+    - name: Assigned to Me
+      code: @record['assigned'] == @current_user
