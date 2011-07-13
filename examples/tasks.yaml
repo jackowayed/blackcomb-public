@@ -1,0 +1,87 @@
+app:
+  name: Tasks
+  klasses:
+
+    - name: Tasks
+      show:
+        - Task
+        - Status
+        - Owner
+        - Priority
+
+      fields:
+        - name: Task
+          type: String
+
+        - name: Type
+          type: Select
+          allow_null: true
+          default: Feature
+          values:
+            - Feature
+            - Bug
+            - Chore
+
+        - name: Status
+          type: Select
+          allow_null: false
+          default: Queue
+          values:
+            - In Progress
+            - Queue
+            - Icebox
+            - Done
+
+        - name: Priority
+          type: Select
+          allow_null: true
+          default: Low
+          values:
+            - Low
+            - Medium
+            - High
+            - Urgent
+
+        - name: Requester
+          allow_null: false
+          type: User
+
+        - name: Owner
+          allow_null: true
+          type: User
+
+        - name: Description
+          type: Text
+
+        - name: Comments
+          type: TextMulti
+
+        - name: Filetest
+          type: File
+
+      callbacks:
+        after_create:
+        after_update:
+          
+      filters:
+        - name: In Progress
+          code: @record['status'] == '0'
+
+        - name: Not Done
+          code: @record['status'] != '3'
+
+        - name: Queue
+          code: @record['status'] == '1'
+
+        - name: Icebox
+          code: @record['status'] == '2'
+
+        - name: Done
+          code: @record['status'] == '3'
+
+        - name: My Work - All
+          code: @record['owner'] == @current_user
+
+        - name: My Work - Current
+          code: @record['owner'] == @current_user and @record['status'] == '0'
+
