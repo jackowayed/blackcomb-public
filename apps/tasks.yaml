@@ -56,7 +56,7 @@ app:
         - name: Comments
           type: TextMulti
 
-        - name: Filetest
+        - name: Attachment
           type: File
 
       callbacks:
