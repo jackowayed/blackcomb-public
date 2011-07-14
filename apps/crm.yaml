@@ -1,5 +1,4 @@
 app:           
-  name: Simple CRM
   klasses:
   - name: Customers
     fields: 
