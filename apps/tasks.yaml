@@ -1,5 +1,4 @@
 app:
-  name: Tasks
   klasses:
 
     - name: Tasks
