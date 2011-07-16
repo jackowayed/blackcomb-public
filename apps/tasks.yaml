@@ -77,7 +77,7 @@ app:
           code: @record['status'] == '2'
 
         - name: Done
-          code: @record['status'] == '3''
+          code: @record['status'] == '3'
 
         - name: Not Done
           code: @record['status'] != '3'
