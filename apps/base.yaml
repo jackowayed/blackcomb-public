@@ -1,6 +1,8 @@
 app:           
   klasses:
   - name: Class
+    show:
+      - Name
     fields: 
-    - name: Field
+    - name: Name
       type: String

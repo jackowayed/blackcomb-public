@@ -1,22 +1,48 @@
-app:           
+app:
   klasses:
-  - name: Customers
-    fields: 
-    - name: Name
-      type: String
-    - name: Email
-      type: String
-    - name: Description
-      type: Text
-    - name: Status
-      type: Select
-      values: ['New', 'Qualified', 'Unqualified' ]
-    - name: Notes
-      type: MultiText
-    - name: Assigned
-      type: User
-    filters:
-    - name: New        
-      code: @record['status'] == '0'
-    - name: Assigned to Me
-      code: @record['assigned'] == @current_user
+
+    - name: Contacts
+      show:
+        - Name
+        - Company
+        - Category
+       
+      fields:
+        - name: Name
+          type: String
+          
+        - name: Company
+          type: String
+          
+        - name: Email
+          type: String
+          
+        - name: Phone
+          type: String
+        
+        - name: Category
+          type: Select
+          allow_null: true
+          values:
+            - Lead
+            - Prospect
+            - Customer
+           
+        - name: Notes
+          type: TextMulti
+              
+        - name: Follow Up
+          type: Bool
+          allow_null: false
+                    
+        - name: Last Contact
+          type: Date
+          allow_null: true
+
+      filters:
+        - name: Leads
+          code: @record['category'] == '0'
+        - name: Prospects
+          code: @record['category'] == '1'
+        - name: Customers
+          code: @record['category'] == '2'

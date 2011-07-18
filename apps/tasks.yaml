@@ -63,11 +63,12 @@ app:
         after_update:
           
       filters:
+
+        - name: My Work - Current
+          code: @record['owner'] == @current_user and @record['status'] == '0'
+
         - name: In Progress
           code: @record['status'] == '0'
-
-        - name: Not Done
-          code: @record['status'] != '3'
 
         - name: Queue
           code: @record['status'] == '1'
@@ -78,9 +79,5 @@ app:
         - name: Done
           code: @record['status'] == '3'
 
-        - name: My Work - All
-          code: @record['owner'] == @current_user
-
-        - name: My Work - Current
-          code: @record['owner'] == @current_user and @record['status'] == '0'
-
+        - name: Not Done
+          code: @record['status'] != '3'
