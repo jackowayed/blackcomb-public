@@ -14,13 +14,13 @@ app:
         - name: Company
           type: String
           
-        - name: Contact
+        - name: Contact Info
           type: String
           
         - name: Description
           type: String
       
-       - name: Follow Up
+        - name: Follow Up
           type: Bool
           
         - name: Type
