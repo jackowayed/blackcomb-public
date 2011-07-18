@@ -1,0 +1,63 @@
+app:
+  klasses:
+
+    - name: Contacts
+      show:
+        - Name
+        - Company
+        - Description
+       
+      fields:
+        - name: Name
+          type: String
+          
+        - name: Company
+          type: String
+          
+        - name: Contact
+          type: String
+          
+        - name: Description
+          type: String
+      
+       - name: Follow Up
+          type: Bool
+          
+        - name: Type
+          type: Select
+          allow_null: true
+          values:
+            - Customer
+            - Investor
+            - Advisor
+            
+        - name: Status
+          type: Select
+          allow_null: true
+          values:
+            - Prospect
+            - Current
+            - Closed
+            - Icebox
+
+        - name: Notes
+          type: TextMulti
+          editable: true
+                    
+        - name: Last Contact
+          type: Date
+          allow_null: true
+
+      filters:
+        - name: To Follow Up
+          code: @record['follow up'] == 1
+          
+        - name: Customers
+          code: @record['type'] == '0'
+          
+        - name: Investors
+          code: @record['type'] == '1'
+          
+        - name: Advisors
+          code: @record['type'] == '2'
+          
