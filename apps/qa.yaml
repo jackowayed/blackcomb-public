@@ -1,11 +1,9 @@
 app:
-  name: Simple QA
   klasses:
 
     - name: Questions
       show:
         - Question
-        - Category
         - Asker
 
       fields:
@@ -15,23 +13,8 @@ app:
         - name: Asker
           type: User
 
-        - name: Category
-          type: Select
-          allow_null: true
-          values:
-            - Javascript
-            - Rails
-            - CSS
-            - Misc
-
-        - name: Comments
-          type: TextMulti
-
         - name: Answers
           type: TextMulti
-
-        - name: Answered
-          type: Bool
 
         - name: Followers
           action: 'Follow'
@@ -40,13 +23,10 @@ app:
           type: UserMulti
 
       filters:
-        - name: No Response
-          code: @record['answers'].length == 0
-        - name: Unanswered
-          code: @record['answered'] == false
-        - name: Recent (last week)
-          code: @record.created_at > Time.now - 7.days
-        - name: 3+ Followers
-          code: @record['followers'].length > 3
         - name: Following
           code: @record['followers'].include? @current_user
+        - name: No Answers
+          code: @record['answers'].length == 0
+        - name: Recent (last week)
+          code: @record.created_at > Time.now - 7.days
+    
