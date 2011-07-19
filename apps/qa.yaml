@@ -7,14 +7,14 @@ app:
         - Question
         - Category
         - Asker
-       
+
       fields:
         - name: Question
           type: String
-          
+
         - name: Asker
           type: User
-        
+
         - name: Category
           type: Select
           allow_null: true
@@ -23,16 +23,15 @@ app:
             - Rails
             - CSS
             - Misc
-           
+
         - name: Comments
           type: TextMulti
-        
+
         - name: Answers
           type: TextMulti
 
         - name: Answered
           type: Bool
-          allow_null: false
 
         - name: Followers
           action: 'Follow'
@@ -44,7 +43,7 @@ app:
         - name: No Response
           code: @record['answers'].length == 0
         - name: Unanswered
-          code: @record['answered']
+          code: @record['answered'] == false
         - name: Recent (last week)
           code: @record.created_at > Time.now - 7.days
         - name: 3+ Followers
