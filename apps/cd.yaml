@@ -47,6 +47,10 @@ app:
         - name: Last Contact
           type: Date
           allow_null: true
+      
+      callbacks:
+        after_email:
+          attach_notes: "t = target_email; r = (find({:email => t}) or record!({:email => t})); attach_text_multi(r,:notes,false)"
 
       filters:
         - name: To Follow Up
