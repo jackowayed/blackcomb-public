@@ -54,14 +54,22 @@ app:
 
         - name: Comments
           type: TextMulti
+          timestamps: true
+          editable: true
+          editors: true
 
         - name: Attachment
           type: File
 
       callbacks:
         after_create:
+          email_owner_if_assigned: "mail(:to => User.where(:_id => @record['owner']).first.email, :from => \"#{@record.klass.app.id}@opzi.com\", :subject => \" You have been assigned to the task \'#{@record['task']}\'\", :body => \"http://#{ENV['HOST']}/#records/#{@record.id}\") unless @record.owner.empty?"
         after_update:
-          
+          email_comments: "change = field_changes('comments'); addresses = get_email_addresses('owner', 'requester'); addresses.delete(@record.updater.email) if addresses ;mail(:to => addresses, :from => \"#{@record.klass.app.id}@opzi.com\", :subject => \" A comment was made for \'#{@record['task']}\'\", :body => \"A comment has been made: \'#{(change[1]-change[0]).join(', ')}\' \", :insert_record_ref => true) if (change && addresses)"
+          email_owner_when_assigned: "change = field_changes('owner'); return if change[1].empty?; mail(:to => User.where(:_id => change[1]).first.email, :from => \"#{@record.klass.app.id}@opzi.com\", :subject => \" You have been assigned to the task \'#{@record['task']}\'\", :body => \"http://#{ENV['HOST']}/#records/#{@record.id}\") if (change)"
+        after_email:
+          attach_comment: "record = load_record_from_body; attach_text_multi(record, 'comments') if record"
+
       filters:
 
         - name: My Work - Current
@@ -69,7 +77,6 @@ app:
 
         - name: In Progress
           code: @record['status'] == '0'
-
         - name: Queue
           code: @record['status'] == '1'
 
@@ -79,5 +86,5 @@ app:
         - name: Done
           code: @record['status'] == '3'
 
-        - name: Not Done
+        - name: All Not Done
           code: @record['status'] != '3'
