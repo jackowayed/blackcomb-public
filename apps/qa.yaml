@@ -1,0 +1,56 @@
+app:
+  klasses:
+
+    - name: Questions
+      show:
+        - Question
+        - Category
+        - Asker
+
+      fields:
+        - name: Question
+          type: String
+
+        - name: Asker
+          type: User
+
+        - name: Category
+          type: Select
+          allow_null: true
+          values:
+            - Javascript
+            - Rails
+            - CSS
+            - Misc
+
+        - name: Answers
+          type: TextMulti
+          votable: true
+
+        - name: Comments
+          type: TextMulti
+
+        - name: Answered
+          type: Bool
+
+        - name: Followers
+          action: 'Follow'
+          reverse_action: 'Unfollow'
+          show_users: false
+          type: UserMulti
+
+      filters:
+        - name: No Response
+          code: @record['answers'].length == 0
+
+        - name: Unanswered
+          code: @record['answered'] == 0
+
+        - name: Recent (last week)
+          code: @record.created_at > Time.now - 7.days
+
+        - name: 3+ Followers
+          code: @record['followers'].length >= 3
+
+        - name: Following
+          code: @record['followers'].include? @current_user
