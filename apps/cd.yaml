@@ -57,11 +57,11 @@ app:
           code: @record['follow up'] == 1
           
         - name: Customers
-          code: @record['type'] == '0'
+          code: @record['type'] == 'Customer'
           
         - name: Investors
-          code: @record['type'] == '1'
+          code: @record['type'] == 'Investor'
           
         - name: Advisors
-          code: @record['type'] == '2'
+          code: @record['type'] == 'Advisor'
           
