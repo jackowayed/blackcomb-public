@@ -73,18 +73,30 @@ app:
       filters:
 
         - name: My Work - Current
-          code: @record['owner'] == @current_user and @record['status'] == '0'
+          code: @record['owner'] == @current_user and @record['status'] == 'In Progress'
 
         - name: In Progress
-          code: @record['status'] == '0'
+          code: @record['status'] == 'In Progress'
+
         - name: Queue
-          code: @record['status'] == '1'
+          code: @record['status'] == 'Queue'
 
         - name: Icebox
-          code: @record['status'] == '2'
+          code: @record['status'] == 'Icebox'
 
         - name: Done
-          code: @record['status'] == '3'
+          code: @record['status'] == 'Done'
 
         - name: All Not Done
-          code: @record['status'] != '3'
+          code: @record['status'] != 'Done'
+
+        - name: By Owner (all)
+          type: User
+          field: Owner
+          code: true
+
+        - name: By Owner (in progress)
+          type: User
+          field: Owner
+          code: @record['status'] == 'In Progress'
+
