@@ -5,7 +5,7 @@ app:
       show:
         - Name
         - Company
-        - Category
+        - Status
        
       fields:
         - name: Name
@@ -20,16 +20,21 @@ app:
         - name: Phone
           type: String
         
-        - name: Category
+        - name: Status
           type: Select
           allow_null: true
           values:
-            - Lead
+            - Active
             - Prospect
-            - Customer
-           
+            - Lead
+            - Icebox
+
+        - name: Description
+          type: Text
+        
         - name: Notes
           type: TextMulti
+          editable: true
               
         - name: Follow Up
           type: Bool
@@ -38,15 +43,18 @@ app:
         - name: Last Contact
           type: Date
           allow_null: true
-
       callbacks:
         after_email:
           attach_notes: "t = target_email; r = (find({:email => t}) or record!({:email => t})); attach_text_multi(r,:notes,false)"
 
       filters:
-        - name: Leads
-          code: @record['category'] == '0'
-        - name: Prospects
-          code: @record['category'] == '1'
-        - name: Customers
-          code: @record['category'] == '2'
+        - name: Active
+          code: @record['status'] == '0'
+        - name: Prospect
+          code: @record['status'] == '1'
+        - name: Lead
+          code: @record['status'] == '2'
+        - name: Icebox
+          code: @record['status'] == '3'        
+        - name: Follow Up
+          code: @record['follow up'] == 1
