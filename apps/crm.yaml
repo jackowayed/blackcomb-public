@@ -49,12 +49,12 @@ app:
 
       filters:
         - name: Active
-          code: @record['status'] == '0'
+          code: @record['status'] == 'Active'
         - name: Prospect
-          code: @record['status'] == '1'
+          code: @record['status'] == 'Prospect'
         - name: Lead
-          code: @record['status'] == '2'
+          code: @record['status'] == 'Lead'
         - name: Icebox
-          code: @record['status'] == '3'        
+          code: @record['status'] == 'Icebox'        
         - name: Follow Up
           code: @record['follow up'] == 1
