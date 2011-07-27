@@ -18,6 +18,7 @@ app:
             - Appetizer
             - Soup
             - Salad
+            - Side
             - Entré
             - Dessert
 
