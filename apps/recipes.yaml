@@ -1,0 +1,48 @@
+app:
+  klasses:
+
+    - name: Recipes
+      show:
+        - Name
+        - Category
+        - Vegetarian
+
+      fields:
+        - name: Name
+          type: String
+
+        - name: Category
+          type: Select
+          allow_null: true
+          values:
+            - Appetizer
+            - Soup
+            - Salad
+            - Entré
+            - Dessert
+
+        - name: Description
+          type: Text
+
+        - name: Notes
+          type: TextMulti
+          votable: true
+          sort_by_votes: true
+
+        - name: Vegetarian
+          type: Bool
+
+        - name: URL
+          type: String
+
+        - name: File
+          type: File
+
+      filters:
+        - name: By Category
+          field: Category
+          type: Select
+          code: true
+
+        - name: Vegetarian
+          code: @record['vegetarian']
